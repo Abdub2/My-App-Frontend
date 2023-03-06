@@ -6,11 +6,10 @@ function Homepage () {
 
     <div>
 
-    
+
     <nav className="navbar bg-primary" data-bs-theme="dark">
         <div className="container-fluid">
             <a className="navbar-brand">Movies App</a>
-
             <ul className="navbar-nav">
                 <li className="nav-item">
                     <Link className="nav-link active" aria-current="page" to="/register">Sign Up</Link>
@@ -19,7 +18,6 @@ function Homepage () {
                     <Link className="nav-link active" aria-current="page" to="/login">Login</Link>
                 </li>
             </ul>
-
         </div>
     </nav>
     </div>
