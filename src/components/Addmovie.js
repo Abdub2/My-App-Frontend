@@ -1,30 +1,41 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Addmovie() {
 
-    const [movie_year, SetMovie_year] = useState()
-    const [movie_title, SetMovie_title] = useState()
-    const [movie_description, SetMovie_description] = useState()
+    const navigate = useNavigate()
+    const [movie_year, SetMovie_year] = useState("")
+    const [movie_title, SetMovie_title] = useState("")
+    const [movie_description, SetMovie_description] = useState("")
+    const [movie_url, SetMovie_url] = useState("")
 
-    function handleSubmit(e) {
-        e.preventdefault()
-    fetch(), {
-        method: "POST",
-    }
+
+    function handleAdd(e) {
+        e.preventDefault()
+
+    fetch('http://localhost:9292/create', {
+    method: 'POST',
     body: JSON.stringify({
         title: movie_title,
         year: movie_year,
-        description: movie_description
-    }
-    )
-    .then((response) => response.json())
+        description: movie_description,
+        movie_url: movie_url
+    })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        navigate("/dashboard")
+    })
+    .catch(error => console.error(error))
     }
 
     return(
-        <form onSubmit={handleSubmit}>
-            <input placeholder="Movie title" onChange={SetMovie_title(movie_title)}></input>
-            <input type="text" placeholder="Movie year" onChange={SetMovie_year(movie_year)}></input>
-            <input type="text" placeholder="Movie description" onChange={SetMovie_description(movie_description)}></input>
+        <form className="form-wrap" onSubmit={e => handleAdd(e)}>
+            <input placeholder="Movie title" value={movie_title} onChange={e => SetMovie_title(e.target.value)} required></input>
+            <input type="integer" placeholder="Movie year" value={movie_year}  onChange={e => SetMovie_year(e.target.movie_year)} required></input>
+            <input type="text" placeholder="Movie description" value={movie_description}  onChange={e => SetMovie_description(e.target.value)} required></input>
+            <input type="text" placeholder="Enter movie url" value={movie_url} onChange={e => SetMovie_url(e.target.value)}></input>
             <input type="submit"></input>
         </form>
     )

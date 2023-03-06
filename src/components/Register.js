@@ -1,33 +1,48 @@
-// import React, { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
 
-    // const [first_name, Setfirst_name] = useState("")
-    // const [last_name, Setlast_name] = useState("")
-    // const [email, SetEmail] = useState("")
-    // const [password, SetPassword] = useState("")
+    const navigate = useNavigate()
+    const [first_name, Setfirst_name] = useState("")
+    const [last_name, Setlast_name] = useState("")
+    const [email, SetEmail] = useState("")
+    const [password, SetPassword] = useState("")
 
-    // function handleAdd() {
-    // fetch(), {
-    //     method: "POST",
-    // }
-    // body: JSON.stringify({
-    //     first_name: first_name,
-    //     last_name: last_name,
-    //     email: email,
-    //     password: password
-    // })
-    // }
+    function handleAdd(e) {
+        e.preventDefault()
 
-    // return(
-    //     <form onChange={handleAdd}>
-    //         <input placeholder="Insert your first name" onChange={Setfirst_name(first_name)}></input>
-    //         <input type="text" placeholder="Insert your last name" onChange={Setlast_name(last_name)}></input>
-    //         <input type="text" placeholder="Insert your email" onChange={SetEmail(email)}></input>
-    //         <input type="text" placeholder="Create your password" onChange={SetPassword(password)}></input>
-    //         <input type="submit"></input>
-    //     </form>
-    // )
+    fetch('http://localhost:9292/auth/register', {
+        method: 'POST',
+        body: JSON.stringify({
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            password: password
+    })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        navigate("/dashboard")
+    })
+    .catch(error => console.error(error))
+    }
+
+    return(
+        <form className="form-wrap" onSubmit={e => handleAdd(e)}>
+            <input type="hidden" name="movie[user_id]" value="<%= @user.id %>"></input>
+            <label>First Name:</label>
+            <input type="text" value={first_name} onChange={e => Setfirst_name(e.target.value)}></input>
+            <label>Last Name:</label>
+            <input type="text" value={last_name} onChange={e => Setlast_name(e.target.value)}></input>
+            <label>Email:</label>
+            <input type="text" value={email} onChange={e => SetEmail(e.target.value)}></input>
+            <label>Password:</label>
+            <input type="text"  value={password} onChange={e => SetPassword(e.target.value)}></input>
+            <input type="submit" value="Add User"></input>
+      </form>
+    )
 }
 
 export default Register;
