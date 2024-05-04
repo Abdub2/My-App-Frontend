@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Allmovies({ movies, handleDeleteMovie }) {
 
     function handleDelete(id) {
-        fetch(`http://localhost:9292/movies/destroy/${id}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}`.concat(`movies/destroy/${id}`), {
             method: "DELETE",
         })
 

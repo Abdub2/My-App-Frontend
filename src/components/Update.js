@@ -18,7 +18,7 @@ const [mov_url, SetMov_url] = useState("")
 function handleUpdate(e) {
     e.preventDefault()
 
-    fetch(`http://localhost:9292/movies/update/${params.id}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}`.concat(`/movies/update/${params.id}`), {
     method: 'PUT',
     body: JSON.stringify({
         title: mov_title,

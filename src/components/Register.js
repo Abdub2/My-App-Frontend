@@ -12,8 +12,11 @@ function Register() {
     function handleAdd(e) {
         e.preventDefault()
 
-    fetch('http://localhost:9292/auth/register', {
+    fetch(`${process.env.REACT_APP_BASE_URL}`.concat("/auth/register"), {
         method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+        },
         body: JSON.stringify({
             first_name: first_name,
             last_name: last_name,
@@ -22,7 +25,7 @@ function Register() {
     })
     })
     .then(response => response.json())
-    .then(data => {
+    .then((data) => {
         console.log(data)
         navigate("/dashboard")
     })
@@ -33,13 +36,13 @@ function Register() {
         <form className="form-wrap" onSubmit={e => handleAdd(e)}>
             <input type="hidden" name="movie[user_id]" value="<%= @user.id %>"></input>
             <label>First Name:</label>
-            <input type="text" value={first_name} onChange={e => Setfirst_name(e.target.value)}></input>
+            <input type="text" value={first_name} onChange={(e) => Setfirst_name(e.target.value)}></input>
             <label>Last Name:</label>
-            <input type="text" value={last_name} onChange={e => Setlast_name(e.target.value)}></input>
+            <input type="text" value={last_name} onChange={(e) => Setlast_name(e.target.value)}></input>
             <label>Email:</label>
-            <input type="text" value={email} onChange={e => SetEmail(e.target.value)}></input>
+            <input type="text" value={email} onChange={(e) => SetEmail(e.target.value)}></input>
             <label>Password:</label>
-            <input type="text"  value={password} onChange={e => SetPassword(e.target.value)}></input>
+            <input type="text"  value={password} onChange={(e) => SetPassword(e.target.value)}></input>
             <input type="submit" value="Add User"></input>
       </form>
     )

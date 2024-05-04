@@ -8,6 +8,7 @@ function Dashboard() {
 
     const navigate = useNavigate()
     const [movies, setMovies] = useState([])
+    
 
   function handleDeleteMovie(id) {
     const updatedMovies = movies.filter((movie) => movie.id !== id);
@@ -15,13 +16,13 @@ function Dashboard() {
   }
 
     useEffect(() => {
-    fetch("http://localhost:9292/movies")
+    fetch(`${process.env.REACT_APP_BASE_URL}`.concat("/movies"))
     .then((response) => response.json())
     .then((data) => setMovies(data))
     }, [])
 
     function handleSearch(query) {
-    fetch (`http://localhost:9292/search?query=${query}`)
+    fetch(`${process.env.REACT_APP_BASE_URL}`.concat(`/search?query=${query}`))
     .then((response) => response.json())
     .then((results) => {
       setMovies(results)

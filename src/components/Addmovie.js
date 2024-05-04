@@ -13,7 +13,7 @@ function Addmovie() {
     function handleAdd(e) {
         e.preventDefault()
 
-    fetch('http://localhost:9292/create', {
+    fetch(`${process.env.REACT_APP_BASE_URL}`.concat('/create'), {
     method: 'POST',
     body: JSON.stringify({
         title: movie_title,

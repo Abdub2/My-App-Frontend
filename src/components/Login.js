@@ -11,8 +11,11 @@ function Login () {
     function handleSubmit(e) {
         e.preventDefault()
 
-    fetch("http://localhost:9292/auth/login", {
+    fetch(`${process.env.REACT_APP_BASE_URL}`.concat("/auth/login"), {
         method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+          },
         body: JSON.stringify({
         email: user_email,
         password: user_password
